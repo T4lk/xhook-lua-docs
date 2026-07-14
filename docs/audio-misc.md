@@ -14,14 +14,23 @@ Streams internet radio (http/https mp3/aac) or plays local files, on a backgroun
 decode thread (Windows Media Foundation → waveOut). Handles are integers; `0` =
 failed / "all".
 
-> ### `audio.stream(url) -> handle` · `audio.play_file(path) -> handle`
+> ### `audio.stream(url) -> handle` · `audio.play_file(path [, rate]) -> handle`
 > Open + start playing a stream URL or a local/downloaded file. Returns a handle.
+> `rate` (play_file) is a playback-speed multiplier: `1.0` normal, `1.5` faster +
+> higher-pitched (Nightcore/Double-Time), `0.75` slower + lower (Half-Time). It's
+> set when the device opens, so it only applies to a **fresh** `play_file`.
+> `audio.position` still reports content-time, so anything synced to the audio stays
+> in sync regardless of rate.
 > ### `audio.stop([handle])` · `audio.pause(handle, bool)`
 > Stop one handle (or **all** if omitted); pause/resume.
 > ### `audio.set_volume(0..1)` · `audio.volume() -> number`
 > Global output volume.
 > ### `audio.is_playing(handle) -> bool` · `audio.position(handle) -> seconds`
 > Playing state and playback position (for a progress bar).
+> ### `audio.duration(handle) -> seconds | nil`
+> Total content length (read from the file's metadata when it opens), or `nil` if
+> unknown. Pair with `audio.position` for a real progress bar and clean end-of-track
+> logic — no more `is_playing` + wall-clock guessing.
 > ### `audio.tags(handle) -> { title, artist, bitrate }`
 > Metadata table. `bitrate` (kbps) is populated; `title`/`artist` are best-effort
 > (live Shoutcast/ICY now-playing is a follow-up, currently empty).

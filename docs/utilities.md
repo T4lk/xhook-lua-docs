@@ -15,7 +15,9 @@ difference — for aim deltas), and `:length()` (pitch/yaw magnitude).
 
 `files.read(name) -> string|nil`, `files.write(name, data) -> bool`,
 `files.exists(name) -> bool`, `files.delete(name)`, `files.mkdir(dir) -> bool`,
-`files.list(dir) -> { {name, dir=bool}, ... }`, `files.script_dir() -> string`.
+`files.list(dir) -> { {name, dir, size, mtime}, ... }`, `files.script_dir() -> string`.
+Each `files.list` entry has `name`, `dir` (bool), `size` (bytes), and `mtime` (a
+comparable number — diff it across calls to auto-refresh when a folder changes).
 
 **Each script gets its own private folder** — `files.*` is sandboxed to
 `<settings>\scripts\data\<your-script>\`, so two scripts writing the same

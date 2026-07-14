@@ -20,6 +20,10 @@ Colours are packed integers from `draw.color`.
 > ```lua
 > draw.text(x, y, draw.color(255,255,255), "hi", draw.flags.CENTER_X | draw.flags.SHADOW)
 > ```
+> ### `draw.text_sized(x, y, size, color, text)`
+> Text at an explicit **pixel size** — for distance-scaled labels (far cards get
+> smaller text), big score numbers, etc. (`draw.text_scaled` is the same effect with
+> a different argument order.)
 
 > ### `draw.line(x1, y1, x2, y2, color)`
 > ### `draw.rect(x, y, w, h, color [, rounding=0] [, thickness=1])` — outline
@@ -28,6 +32,12 @@ Colours are packed integers from `draw.color`.
 > ### `draw.circle_filled(x, y, radius, color [, segments=24])`
 > ### `draw.triangle(x1,y1, x2,y2, x3,y3, color [, thickness=1])`
 > ### `draw.triangle_filled(x1,y1, x2,y2, x3,y3, color)`
+> ### `draw.triangles({x1,y1, x2,y2, ...}, color)`
+> A raw **triangle list** from a flat point table (every 3 points = one filled
+> triangle). Solid, **non-anti-aliased** fill — no edge fringe, so adjacent
+> triangles don't double-blend at shared edges. Build a clean slider tube / arbitrary
+> mesh in one call (emit a strip as `v0,v1,v2, v1,v2,v3, …`). Unlike `polygon_filled`
+> it isn't limited to a convex shape.
 > ### `draw.line_3d(a, b, color [, thickness=1] [, opts])`
 > Draw a line between two **world** `Vector`s; skipped if either end is
 > off-screen. Great for tracers / bounding volumes. `opts` — see the occlusion
@@ -128,6 +138,11 @@ Colours are packed integers from `draw.color`.
 > Draw a loaded `Image` rotated `angle_deg` degrees (clockwise) around its centre
 > `(cx, cy)`. `w`/`h` are the unrotated width/height; `color` tints it. Use for
 > spinning sprites — slider balls, spinner discs, radar sweeps.
+> ### `draw.image_quad(image, x1,y1, x2,y2, x3,y3, x4,y4 [, color])`
+> Draw an `Image` warped onto **four arbitrary corners** — genuinely
+> perspective-tilted, not just axis-aligned scaling. Corners map to the image's UVs
+> in order **TL, TR, BR, BL**. Project the four corners of a card / playfield / note
+> with `world_to_screen` and pass them here for a real 3D-tilted quad.
 > ### `draw.create_font(file, size) -> Font`
 > Load a TTF from `<settings>\scripts\fonts\` (or an absolute path) at `size` px.
 > The atlas rebuilds on the next frame, so the font is ready ~1 frame later

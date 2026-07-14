@@ -19,6 +19,10 @@
 
 > ### `engine.real_time() -> number` · `engine.tickcount() -> integer`
 > Wall-clock seconds / milliseconds since boot (advance even paused).
+> ### `engine.perf_time() -> number`
+> High-resolution monotonic clock in seconds (`QueryPerformanceCounter`, sub-µs
+> precision). Use it for smooth interpolation / animation timing where
+> `real_time()`'s ~1 ms granularity would judder.
 
 > ### `engine.frame_time() -> number`
 > Duration of the last frame, in seconds.
