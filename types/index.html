@@ -987,7 +987,7 @@ for <code>draw.box_3d</code>, matching the native ESP box), <code>:prev_origin()
 <code>:is_dead()</code>, <code>:class_id()</code>, <code>:fall_velocity()</code>, <code>:gait_yaw()</code>,
 <code>:sequence_frame()</code>, <code>:observer_state()</code>, <code>:weapon_model()</code>,
 <code>:frags()</code>, <code>:deaths()</code>, <code>:ping()</code> (scoreboard / latency).</p>
-<p><strong>Type &amp; raw props</strong> (Phase 01):
+<p><strong>Type &amp; raw props</strong>:
 - <code>:class() -&gt; string</code> — coarse type from the model name (GoldSrc has no
   client-side classname): <code>"player"</code>, <code>"weapon"</code>, <code>"grenade"</code>, <code>"c4"</code>,
   <code>"hostage"</code>, <code>"chicken"</code>, <code>"brush"</code> (a <code>*N</code> BSP submodel — func_door/wall/…),
@@ -1008,19 +1008,19 @@ for <code>draw.box_3d</code>, matching the native ESP box), <code>:prev_origin()
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;owner slot:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">e</span><span class="p">:</span><span class="nf">prop</span><span class="p">(</span><span class="s2">&quot;owner&quot;</span><span class="p">),</span><span class="w"> </span><span class="s2">&quot;iuser1:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">e</span><span class="p">:</span><span class="nf">prop</span><span class="p">(</span><span class="s2">&quot;iuser1&quot;</span><span class="p">))</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kr">end</span>
 </span></code></pre></div>
-<p><strong>Backtrack</strong> (Phase 04):
+<p><strong>Backtrack</strong>:
 - <code>:backtrack_records() -&gt; table[]</code> — the quantised rewind candidates the
   ragebot / backtrack-chams use for this player. Each entry is
   <code>{ origin = Vector, time = number (server animtime), latency = number (fake-lag
   seconds this record would request) }</code>. Read-only view of the existing lag-comp
   history; empty for non-players / when no history exists. Handy for drawing
   backtrack points (<code>draw.box_3d</code> at each <code>origin</code>).</p>
-<p><strong>Local movement override</strong> (Phase 04, local player only):
+<p><strong>Local movement override</strong> (local player only):
 - <code>:set_velocity(Vector)</code> / <code>:set_origin(Vector)</code> — queue a <strong>client-side
   prediction</strong> velocity/teleport applied after movement runs. ⚠️ Prediction only:
   the server re-simulates from your usercmd, so it <strong>rubberbands</strong> on lag-comp
   servers — for real, server-respected movement drive <code>cmd.forwardmove</code> /
-  <code>sidemove</code> / <code>buttons</code> from <code>on_create_move</code> (Phase 02) instead. Effects last one
+  <code>sidemove</code> / <code>buttons</code> from <code>on_create_move</code> instead. Effects last one
   tick, so call every tick for a continuous hold. Errors on a non-local entity.</p>
 <div class="highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- client-side &quot;speed&quot; feel: re-apply a boosted horizontal velocity each tick</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">callbacks</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="s2">&quot;on_create_move&quot;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">()</span>
