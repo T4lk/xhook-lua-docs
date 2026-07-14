@@ -94,7 +94,7 @@ for `draw.box_3d`, matching the native ESP box), `:prev_origin() -> Vector`,
 `:sequence_frame()`, `:observer_state()`, `:weapon_model()`,
 `:frags()`, `:deaths()`, `:ping()` (scoreboard / latency).
 
-**Type & raw props** (Phase 01):
+**Type & raw props**:
 - `:class() -> string` — coarse type from the model name (GoldSrc has no
   client-side classname): `"player"`, `"weapon"`, `"grenade"`, `"c4"`,
   `"hostage"`, `"chicken"`, `"brush"` (a `*N` BSP submodel — func_door/wall/…),
@@ -118,7 +118,7 @@ if e and e:class() == "grenade" then
 end
 ```
 
-**Backtrack** (Phase 04):
+**Backtrack**:
 - `:backtrack_records() -> table[]` — the quantised rewind candidates the
   ragebot / backtrack-chams use for this player. Each entry is
   `{ origin = Vector, time = number (server animtime), latency = number (fake-lag
@@ -126,12 +126,12 @@ end
   history; empty for non-players / when no history exists. Handy for drawing
   backtrack points (`draw.box_3d` at each `origin`).
 
-**Local movement override** (Phase 04, local player only):
+**Local movement override** (local player only):
 - `:set_velocity(Vector)` / `:set_origin(Vector)` — queue a **client-side
   prediction** velocity/teleport applied after movement runs. ⚠️ Prediction only:
   the server re-simulates from your usercmd, so it **rubberbands** on lag-comp
   servers — for real, server-respected movement drive `cmd.forwardmove` /
-  `sidemove` / `buttons` from `on_create_move` (Phase 02) instead. Effects last one
+  `sidemove` / `buttons` from `on_create_move` instead. Effects last one
   tick, so call every tick for a continuous hold. Errors on a non-local entity.
 
 ```lua
