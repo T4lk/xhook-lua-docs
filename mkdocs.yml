@@ -10,15 +10,16 @@ theme:
   language: en
   palette:
     scheme: slate
-    primary: cyan
-    accent: cyan
+    primary: black
+    accent: deep purple
   font:
     text: Roboto
     code: Roboto Mono
   icon:
     repo: fontawesome/brands/github
   features:
-    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
     - navigation.top
     - navigation.instant
     - navigation.tracking
