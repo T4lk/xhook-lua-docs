@@ -1,0 +1,20 @@
+/* xhook dark + cyan tuning on top of Material's slate scheme */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color:       #0b0e14;
+  --md-default-bg-color--light: #10151f;
+  --md-primary-fg-color:       #0e1320;   /* dark top bar (not bright cyan) */
+  --md-primary-fg-color--dark: #0b0e14;
+  --md-accent-fg-color:        #19d3ff;
+  --md-typeset-a-color:        #19d3ff;
+  --md-code-bg-color:          #0c111b;
+}
+
+/* accent the section headings + inline code */
+[data-md-color-scheme="slate"] .md-typeset h2 { border-bottom: 1px solid #1c2534; padding-bottom: .3rem; }
+[data-md-color-scheme="slate"] .md-typeset h3 { color: #19d3ff; }
+[data-md-color-scheme="slate"] .md-typeset code { color: #ffd27a; }
+[data-md-color-scheme="slate"] .md-typeset a > code { color: #19d3ff; }
+
+/* active tab / nav accent */
+[data-md-color-scheme="slate"] .md-tabs__link--active,
+[data-md-color-scheme="slate"] .md-nav__link--active { color: #19d3ff; }

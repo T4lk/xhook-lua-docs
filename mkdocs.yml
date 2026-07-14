@@ -1,0 +1,59 @@
+site_name: xhook · Lua
+site_url: https://t4lk.github.io/xhook-lua-docs/
+site_description: Lua scripting API for the xhook CS 1.6 cheat
+repo_url: https://github.com/T4lk/xhook-gldsrc
+repo_name: T4lk/xhook-gldsrc
+copyright: xhook · Lua scripting API
+
+theme:
+  name: material
+  language: en
+  palette:
+    scheme: slate
+    primary: cyan
+    accent: cyan
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Events: events.md
+  - "Engine & World": engine-world.md
+  - "Drawing & Effects": drawing.md
+  - "Net · DB · Features · UI": systems.md
+  - "Callbacks · Tasks · Types": types.md
+  - "Utilities & Memory": utilities.md
+  - "Audio & State": audio-misc.md
+  - Examples: examples.md
