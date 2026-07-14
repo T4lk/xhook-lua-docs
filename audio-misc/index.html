@@ -508,10 +508,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#audiostreamurl-handle-audioplay_filepath-handle" class="md-nav__link">
+  <a href="#audiostreamurl-handle-audioplay_filepath-rate-handle" class="md-nav__link">
     <span class="md-ellipsis">
       
-        audio.stream(url) -&gt; handle · audio.play_file(path) -&gt; handle
+        audio.stream(url) -&gt; handle · audio.play_file(path [, rate]) -&gt; handle
       
     </span>
   </a>
@@ -545,6 +545,17 @@
     <span class="md-ellipsis">
       
         audio.is_playing(handle) -&gt; bool · audio.position(handle) -&gt; seconds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audiodurationhandle-seconds-nil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        audio.duration(handle) -&gt; seconds | nil
       
     </span>
   </a>
@@ -757,10 +768,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#audiostreamurl-handle-audioplay_filepath-handle" class="md-nav__link">
+  <a href="#audiostreamurl-handle-audioplay_filepath-rate-handle" class="md-nav__link">
     <span class="md-ellipsis">
       
-        audio.stream(url) -&gt; handle · audio.play_file(path) -&gt; handle
+        audio.stream(url) -&gt; handle · audio.play_file(path [, rate]) -&gt; handle
       
     </span>
   </a>
@@ -794,6 +805,17 @@
     <span class="md-ellipsis">
       
         audio.is_playing(handle) -&gt; bool · audio.position(handle) -&gt; seconds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audiodurationhandle-seconds-nil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        audio.duration(handle) -&gt; seconds | nil
       
     </span>
   </a>
@@ -952,14 +974,23 @@ counters here so editing the file doesn't reset them.
 decode thread (Windows Media Foundation → waveOut). Handles are integers; <code>0</code> =
 failed / "all".</p>
 <blockquote>
-<h3 id="audiostreamurl-handle-audioplay_filepath-handle"><code>audio.stream(url) -&gt; handle</code> · <code>audio.play_file(path) -&gt; handle</code><a class="headerlink" href="#audiostreamurl-handle-audioplay_filepath-handle" title="Permanent link">&para;</a></h3>
-<p>Open + start playing a stream URL or a local/downloaded file. Returns a handle.</p>
+<h3 id="audiostreamurl-handle-audioplay_filepath-rate-handle"><code>audio.stream(url) -&gt; handle</code> · <code>audio.play_file(path [, rate]) -&gt; handle</code><a class="headerlink" href="#audiostreamurl-handle-audioplay_filepath-rate-handle" title="Permanent link">&para;</a></h3>
+<p>Open + start playing a stream URL or a local/downloaded file. Returns a handle.
+<code>rate</code> (play_file) is a playback-speed multiplier: <code>1.0</code> normal, <code>1.5</code> faster +
+higher-pitched (Nightcore/Double-Time), <code>0.75</code> slower + lower (Half-Time). It's
+set when the device opens, so it only applies to a <strong>fresh</strong> <code>play_file</code>.
+<code>audio.position</code> still reports content-time, so anything synced to the audio stays
+in sync regardless of rate.</p>
 <h3 id="audiostophandle-audiopausehandle-bool"><code>audio.stop([handle])</code> · <code>audio.pause(handle, bool)</code><a class="headerlink" href="#audiostophandle-audiopausehandle-bool" title="Permanent link">&para;</a></h3>
 <p>Stop one handle (or <strong>all</strong> if omitted); pause/resume.</p>
 <h3 id="audioset_volume01-audiovolume-number"><code>audio.set_volume(0..1)</code> · <code>audio.volume() -&gt; number</code><a class="headerlink" href="#audioset_volume01-audiovolume-number" title="Permanent link">&para;</a></h3>
 <p>Global output volume.</p>
 <h3 id="audiois_playinghandle-bool-audiopositionhandle-seconds"><code>audio.is_playing(handle) -&gt; bool</code> · <code>audio.position(handle) -&gt; seconds</code><a class="headerlink" href="#audiois_playinghandle-bool-audiopositionhandle-seconds" title="Permanent link">&para;</a></h3>
 <p>Playing state and playback position (for a progress bar).</p>
+<h3 id="audiodurationhandle-seconds-nil"><code>audio.duration(handle) -&gt; seconds | nil</code><a class="headerlink" href="#audiodurationhandle-seconds-nil" title="Permanent link">&para;</a></h3>
+<p>Total content length (read from the file's metadata when it opens), or <code>nil</code> if
+unknown. Pair with <code>audio.position</code> for a real progress bar and clean end-of-track
+logic — no more <code>is_playing</code> + wall-clock guessing.</p>
 <h3 id="audiotagshandle-title-artist-bitrate"><code>audio.tags(handle) -&gt; { title, artist, bitrate }</code><a class="headerlink" href="#audiotagshandle-title-artist-bitrate" title="Permanent link">&para;</a></h3>
 <p>Metadata table. <code>bitrate</code> (kbps) is populated; <code>title</code>/<code>artist</code> are best-effort
 (live Shoutcast/ICY now-playing is a follow-up, currently empty).</p>

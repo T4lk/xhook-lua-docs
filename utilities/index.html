@@ -676,7 +676,9 @@ difference — for aim deltas), and <code>:length()</code> (pitch/yaw magnitude)
 <p><code>bit.band/bor/bxor(...)</code>, <code>bit.bnot(x)</code>, <code>bit.lshift/rshift/arshift(x, n)</code>.</p>
 <p><code>files.read(name) -&gt; string|nil</code>, <code>files.write(name, data) -&gt; bool</code>,
 <code>files.exists(name) -&gt; bool</code>, <code>files.delete(name)</code>, <code>files.mkdir(dir) -&gt; bool</code>,
-<code>files.list(dir) -&gt; { {name, dir=bool}, ... }</code>, <code>files.script_dir() -&gt; string</code>.</p>
+<code>files.list(dir) -&gt; { {name, dir, size, mtime}, ... }</code>, <code>files.script_dir() -&gt; string</code>.
+Each <code>files.list</code> entry has <code>name</code>, <code>dir</code> (bool), <code>size</code> (bytes), and <code>mtime</code> (a
+comparable number — diff it across calls to auto-refresh when a folder changes).</p>
 <p><strong>Each script gets its own private folder</strong> — <code>files.*</code> is sandboxed to
 <code>&lt;settings&gt;\scripts\data\&lt;your-script&gt;\</code>, so two scripts writing the same
 filename never collide. Subfolders work (<code>files.write("saves/slot1.json", ...)</code>

@@ -406,6 +406,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#engineperf_time-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        engine.perf_time() -&gt; number
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#engineframe_time-number" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1043,6 +1054,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#engineperf_time-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        engine.perf_time() -&gt; number
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#engineframe_time-number" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1462,6 +1484,10 @@
 <p>Client time in seconds (game clock). Use for timing in-game logic.</p>
 <h3 id="enginereal_time-number-enginetickcount-integer"><code>engine.real_time() -&gt; number</code> · <code>engine.tickcount() -&gt; integer</code><a class="headerlink" href="#enginereal_time-number-enginetickcount-integer" title="Permanent link">&para;</a></h3>
 <p>Wall-clock seconds / milliseconds since boot (advance even paused).</p>
+<h3 id="engineperf_time-number"><code>engine.perf_time() -&gt; number</code><a class="headerlink" href="#engineperf_time-number" title="Permanent link">&para;</a></h3>
+<p>High-resolution monotonic clock in seconds (<code>QueryPerformanceCounter</code>, sub-µs
+precision). Use it for smooth interpolation / animation timing where
+<code>real_time()</code>'s ~1 ms granularity would judder.</p>
 <h3 id="engineframe_time-number"><code>engine.frame_time() -&gt; number</code><a class="headerlink" href="#engineframe_time-number" title="Permanent link">&para;</a></h3>
 <p>Duration of the last frame, in seconds.</p>
 <h3 id="engineframe_stats-table"><code>engine.frame_stats() -&gt; table</code><a class="headerlink" href="#engineframe_stats-table" title="Permanent link">&para;</a></h3>

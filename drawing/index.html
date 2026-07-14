@@ -422,6 +422,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#drawtext_sizedx-y-size-color-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.text_sized(x, y, size, color, text)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#drawlinex1-y1-x2-y2-color" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -492,6 +503,17 @@
     <span class="md-ellipsis">
       
         draw.triangle_filled(x1,y1, x2,y2, x3,y3, color)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drawtrianglesx1y1-x2y2-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.triangles({x1,y1, x2,y2, ...}, color)
       
     </span>
   </a>
@@ -756,6 +778,17 @@
     <span class="md-ellipsis">
       
         draw.image_rotated(image, cx, cy, w, h, angle_deg [, color])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drawimage_quadimage-x1y1-x2y2-x3y3-x4y4-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.image_quad(image, x1,y1, x2,y2, x3,y3, x4,y4 [, color])
       
     </span>
   </a>
@@ -1098,6 +1131,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#drawtext_sizedx-y-size-color-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.text_sized(x, y, size, color, text)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#drawlinex1-y1-x2-y2-color" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1168,6 +1212,17 @@
     <span class="md-ellipsis">
       
         draw.triangle_filled(x1,y1, x2,y2, x3,y3, color)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drawtrianglesx1y1-x2y2-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.triangles({x1,y1, x2,y2, ...}, color)
       
     </span>
   </a>
@@ -1439,6 +1494,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#drawimage_quadimage-x1y1-x2y2-x3y3-x4y4-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw.image_quad(image, x1,y1, x2,y2, x3,y3, x4,y4 [, color])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#drawcreate_fontfile-size-font" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1595,6 +1661,10 @@
 <code>CENTER_Y</code>, <code>NONE</code> — combine with <code>|</code>.
 <div class="highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">draw</span><span class="p">.</span><span class="nf">text</span><span class="p">(</span><span class="nv">x</span><span class="p">,</span><span class="w"> </span><span class="nv">y</span><span class="p">,</span><span class="w"> </span><span class="nv">draw</span><span class="p">.</span><span class="nf">color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="w"> </span><span class="s2">&quot;hi&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">draw</span><span class="p">.</span><span class="py">flags</span><span class="p">.</span><span class="py">CENTER_X</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nv">draw</span><span class="p">.</span><span class="py">flags</span><span class="p">.</span><span class="py">SHADOW</span><span class="p">)</span>
 </span></code></pre></div></p>
+<h3 id="drawtext_sizedx-y-size-color-text"><code>draw.text_sized(x, y, size, color, text)</code><a class="headerlink" href="#drawtext_sizedx-y-size-color-text" title="Permanent link">&para;</a></h3>
+<p>Text at an explicit <strong>pixel size</strong> — for distance-scaled labels (far cards get
+smaller text), big score numbers, etc. (<code>draw.text_scaled</code> is the same effect with
+a different argument order.)</p>
 <h3 id="drawlinex1-y1-x2-y2-color"><code>draw.line(x1, y1, x2, y2, color)</code><a class="headerlink" href="#drawlinex1-y1-x2-y2-color" title="Permanent link">&para;</a></h3>
 <h3 id="drawrectx-y-w-h-color-rounding0-thickness1-outline"><code>draw.rect(x, y, w, h, color [, rounding=0] [, thickness=1])</code> — outline<a class="headerlink" href="#drawrectx-y-w-h-color-rounding0-thickness1-outline" title="Permanent link">&para;</a></h3>
 <h3 id="drawrect_filledx-y-w-h-color-rounding0"><code>draw.rect_filled(x, y, w, h, color [, rounding=0])</code><a class="headerlink" href="#drawrect_filledx-y-w-h-color-rounding0" title="Permanent link">&para;</a></h3>
@@ -1602,6 +1672,12 @@
 <h3 id="drawcircle_filledx-y-radius-color-segments24"><code>draw.circle_filled(x, y, radius, color [, segments=24])</code><a class="headerlink" href="#drawcircle_filledx-y-radius-color-segments24" title="Permanent link">&para;</a></h3>
 <h3 id="drawtrianglex1y1-x2y2-x3y3-color-thickness1"><code>draw.triangle(x1,y1, x2,y2, x3,y3, color [, thickness=1])</code><a class="headerlink" href="#drawtrianglex1y1-x2y2-x3y3-color-thickness1" title="Permanent link">&para;</a></h3>
 <h3 id="drawtriangle_filledx1y1-x2y2-x3y3-color"><code>draw.triangle_filled(x1,y1, x2,y2, x3,y3, color)</code><a class="headerlink" href="#drawtriangle_filledx1y1-x2y2-x3y3-color" title="Permanent link">&para;</a></h3>
+<h3 id="drawtrianglesx1y1-x2y2-color"><code>draw.triangles({x1,y1, x2,y2, ...}, color)</code><a class="headerlink" href="#drawtrianglesx1y1-x2y2-color" title="Permanent link">&para;</a></h3>
+<p>A raw <strong>triangle list</strong> from a flat point table (every 3 points = one filled
+triangle). Solid, <strong>non-anti-aliased</strong> fill — no edge fringe, so adjacent
+triangles don't double-blend at shared edges. Build a clean slider tube / arbitrary
+mesh in one call (emit a strip as <code>v0,v1,v2, v1,v2,v3, …</code>). Unlike <code>polygon_filled</code>
+it isn't limited to a convex shape.</p>
 <h3 id="drawline_3da-b-color-thickness1-opts"><code>draw.line_3d(a, b, color [, thickness=1] [, opts])</code><a class="headerlink" href="#drawline_3da-b-color-thickness1-opts" title="Permanent link">&para;</a></h3>
 <p>Draw a line between two <strong>world</strong> <code>Vector</code>s; skipped if either end is
 off-screen. Great for tracers / bounding volumes. <code>opts</code> — see the occlusion
@@ -1699,6 +1775,11 @@ has <code>:width()</code>, <code>:height()</code>, <code>:size()</code>.</p>
 <p>Draw a loaded <code>Image</code> rotated <code>angle_deg</code> degrees (clockwise) around its centre
 <code>(cx, cy)</code>. <code>w</code>/<code>h</code> are the unrotated width/height; <code>color</code> tints it. Use for
 spinning sprites — slider balls, spinner discs, radar sweeps.</p>
+<h3 id="drawimage_quadimage-x1y1-x2y2-x3y3-x4y4-color"><code>draw.image_quad(image, x1,y1, x2,y2, x3,y3, x4,y4 [, color])</code><a class="headerlink" href="#drawimage_quadimage-x1y1-x2y2-x3y3-x4y4-color" title="Permanent link">&para;</a></h3>
+<p>Draw an <code>Image</code> warped onto <strong>four arbitrary corners</strong> — genuinely
+perspective-tilted, not just axis-aligned scaling. Corners map to the image's UVs
+in order <strong>TL, TR, BR, BL</strong>. Project the four corners of a card / playfield / note
+with <code>world_to_screen</code> and pass them here for a real 3D-tilted quad.</p>
 <h3 id="drawcreate_fontfile-size-font"><code>draw.create_font(file, size) -&gt; Font</code><a class="headerlink" href="#drawcreate_fontfile-size-font" title="Permanent link">&para;</a></h3>
 <p>Load a TTF from <code>&lt;settings&gt;\scripts\fonts\</code> (or an absolute path) at <code>size</code> px.
 The atlas rebuilds on the next frame, so the font is ready ~1 frame later
