@@ -211,6 +211,29 @@ Post-process) from Lua — not faked with overlay draws.
   just no-ops (enable `pp_debug` to see the log).
 - `gfx.uniform(name, a [, b [, c]])` — set a custom `float` / `vec2` / `vec3`
   uniform on your shader.
+- `gfx.world_shader(glsl_fn)` — **shade the WORLD itself** (not the screen): splice
+  a GLSL 120 function into the replacement world renderer's fragment shader. You
+  supply exactly one function:
+  `vec3 xs_world(vec3 col, vec3 albedo, vec3 light, vec3 wpos, vec3 normal, vec2 uv)`
+  — it runs as the *last* step of the engine world shader (after lightmaps, sun,
+  dynamic lights, tint and fog all did their thing) and returns the final surface
+  colour. `uniform float xs_time;` (seconds) is predeclared — do **not** redeclare
+  it; declare any extra uniforms yourself and feed them with `gfx.world_uniform`.
+  Pass `nil`/`""` to remove (auto-removed on unload). Compile failure keeps the
+  stock look. Needs the modern world renderer (Visuals → World) to be active.
+- `gfx.world_uniform(name, a [, b [, c]])` — `float` / `vec2` / `vec3` uniform on
+  the world function.
+
+```lua
+-- world: pulsing tron grid painted onto every surface, lighting intact
+gfx.world_shader([[
+vec3 xs_world(vec3 col, vec3 albedo, vec3 light, vec3 wpos, vec3 normal, vec2 uv){
+    vec2 g = abs(fract(wpos.xy / 64.0) - 0.5);
+    float line = smoothstep(0.47, 0.5, max(g.x, g.y));
+    return col * 0.35 + vec3(0.1, 0.9, 1.0) * line * (0.6 + 0.4 * sin(xs_time * 2.0));
+}
+]])
+```
 
 ```lua
 gfx.shader([[
@@ -238,5 +261,51 @@ the colour-grade set `exposure`, `contrast`, `saturation`, `temperature`,
 gfx.set("bloom", true); gfx.set("bloom_intensity", 1.2)
 gfx.set("grade", true); gfx.set("chromatic", 0.35); gfx.set("vignette", 0.4)
 gfx.flash(0, 255, 200, 0.7)   -- cyan screen pulse
+```
+
+## `chams.*` — script-driven player materials
+
+Bridge to the native GPU chams pass: assign a material **per player, per frame**
+(call from `on_paint`; stop calling → native menu chams resume). Needs native
+Chams enabled for the category in Visuals → Chams.
+
+- `chams.set(player, { mode=, color=, occluded=, occluded_color=, wireframe=, hide= })`
+  — `player` is an Entity or index. `mode`/`occluded` accept a mode name (see
+  `chams.modes`) or id; `color`/`occluded_color` are `{r,g,b,a}` 0..255.
+- `chams.clear(player)` — hand the player back to the native chams.
+- `chams.modes` — table of `name = id` for every material (`flat`, `glow`,
+  `galaxy`, `dragon`, … and `custom`, see below).
+- `chams.shader(glsl_frag)` — **write your own player material**: install a full
+  GLSL 120 fragment shader for the `"custom"` mode, then use it with
+  `chams.set(e, { mode = "custom", ... })`. It links against the GPU-skinning
+  vertex shader — declare only the varyings you use:
+  `varying vec2 v_uv;` (skin uv), `varying vec3 v_light;` (engine light),
+  `varying float v_fresnel;` (1 at silhouette), `varying vec2 v_chromeUV;`,
+  `varying vec3 v_vpos; / v_vnormal;` (view-space), `varying vec3 v_wpos;`
+  (world), `varying vec3 v_mpos;` (model-space, body-anchored patterns),
+  `varying float v_up;` (0 feet .. 1 head) — plus the standard uniforms you want:
+  `uniform sampler2D u_tex;` (the real skin, when the model has one),
+  `uniform float u_time;`, `uniform vec4 u_color;` (the chams.set colour, 0..1),
+  `uniform float u_alpha;`. Pass `nil`/`""` to remove (auto-removed on unload).
+  While none is installed / compile failed, `"custom"` draws flat colour.
+- `chams.uniform(name, a [, b [, c]])` — custom `float` / `vec2` / `vec3` uniform
+  on your material shader.
+
+```lua
+chams.shader([[
+#version 120
+varying vec3 v_mpos; varying float v_fresnel;
+uniform float u_time; uniform vec4 u_color; uniform float u_alpha;
+void main(){
+    float bands = 0.5 + 0.5 * sin(v_mpos.z * 0.35 - u_time * 4.0);   // energy rings
+    vec3 c = u_color.rgb * bands + vec3(1.0) * pow(v_fresnel, 3.0);
+    gl_FragColor = vec4(c, u_alpha);
+}
+]])
+callbacks.register("on_paint", function()
+    for _, e in ipairs(world.get_players(true)) do
+        if e:is_alive() then chams.set(e, { mode = "custom", color = {0,220,255,255} }) end
+    end
+end)
 ```
 

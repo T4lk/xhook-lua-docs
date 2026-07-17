@@ -50,7 +50,7 @@ print(util.add(2, 3))
 
 - **[Events](events.md)** — the callbacks you hook (`on_paint`, `on_create_move`, …)
 - **[Engine & World](engine-world.md)** — `engine.*`, `world.*`, traces, players
-- **[Drawing & Effects](drawing.md)** — `draw.*`, 3D, `gfx.*` post-processing + shaders
+- **[Drawing & Effects](drawing.md)** — `draw.*`, 3D, `gfx.*` post-processing + custom GLSL on the screen, the world and player models (`gfx.shader`, `gfx.world_shader`, `chams.shader`)
 - **[Net · DB · Features · UI](systems.md)** — net-message hooks, storage, your own menu
 - **[Callbacks · Tasks · Types](types.md)** — scheduler, `Vector`/`Angle`/`Quaternion`/`Entity`
 - **[Utilities & Memory](utilities.md)** — `util`, `bit`, `files`, raw `memory.*`

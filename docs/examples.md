@@ -99,6 +99,54 @@ gfx.shader([[
 callbacks.register("on_script_unload", function() gfx.shader(nil) end)
 ```
 
+## World shader (tron grid)
+
+Shade the **map geometry itself** — the `xs_world` function runs inside the
+engine's world shader after all lighting, so lightmaps/sun/fog keep working.
+Needs the modern world renderer (Visuals → World).
+
+```lua
+gfx.world_shader([[
+uniform float xs_amt;
+vec3 xs_world(vec3 col, vec3 albedo, vec3 light, vec3 wpos, vec3 normal, vec2 uv){
+    vec2 g = abs(fract(wpos.xy / 64.0) - 0.5);
+    float line = smoothstep(0.46, 0.5, max(g.x, g.y));
+    vec3 neon = vec3(0.1, 0.9, 1.0) * (0.6 + 0.4 * sin(xs_time * 2.0));
+    return mix(col, col * 0.3 + neon * line, xs_amt);
+}
+]])
+callbacks.register("on_paint", function() gfx.world_uniform("xs_amt", 1.0) end)
+callbacks.register("on_script_unload", function() gfx.world_shader(nil) end)
+```
+
+## Custom player material (energy rings)
+
+A real GLSL fragment shader on player models, applied through the `"custom"`
+chams mode. Needs native Chams enabled (any mode) in Visuals → Chams.
+
+```lua
+chams.shader([[
+#version 120
+varying vec3 v_mpos; varying float v_fresnel;
+uniform float u_time; uniform vec4 u_color; uniform float u_alpha;
+void main(){
+    float bands = pow(0.5 + 0.5 * sin(v_mpos.z * 0.5 - u_time * 5.0), 3.0);
+    vec3 c = u_color.rgb * (0.15 + bands * 1.2)
+           + vec3(1.0) * pow(clamp(v_fresnel, 0.0, 1.0), 3.0);
+    gl_FragColor = vec4(c, u_alpha);
+}
+]])
+callbacks.register("on_paint", function()
+    for _, e in ipairs(world.get_players(true)) do
+        if e:is_alive() then
+            chams.set(e, { mode = "custom", color = { 0, 220, 255, 255 },
+                           occluded = "custom", occluded_color = { 255, 60, 60, 255 } })
+        end
+    end
+end)
+callbacks.register("on_script_unload", function() chams.shader(nil) end)
+```
+
 ## Streaming radio
 
 ```lua
