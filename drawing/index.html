@@ -1900,16 +1900,19 @@ the colour-grade set <code>exposure</code>, <code>contrast</code>, <code>saturat
 <code>vignette</code>, <code>chromatic</code> (aberration), <code>grain</code>, <code>sharpen</code> (these need <code>grade</code> on).</p>
 <p><strong>Ambience / weather</strong> (the native particle weather system, same as Visuals →
 Ambience — real rain/snow particles with ground traces, splashes and audio, not
-overlay fakes). <code>weather</code> is the master enable; nothing below renders without it.
-Toggles: <code>weather</code>, <code>rain</code>, <code>rain_puddles</code>, <code>rain_sound</code>, <code>rain_thunder</code>, <code>snow</code>,
+overlay fakes). <code>rain</code>, <code>snow</code> and <code>ground_fog</code> are independent toggles.
+Toggles: <code>rain</code>, <code>rain_puddles</code>, <code>rain_sound</code>, <code>rain_thunder</code>, <code>snow</code>,
 <code>snow_sound</code>, <code>ground_fog</code>, <code>world_fog</code>. Parameters: <code>weather_radius</code>, <code>wind</code>,
 <code>fallspeed</code>, <code>rain_density</code>, <code>rain_style</code> (0 classic, 1 enhanced streaks),
 <code>rain_puddles_amount</code>, <code>rain_volume</code>, <code>snow_density</code>, <code>snow_flake_size</code>,
 <code>snow_flake_life</code>, <code>snow_volume</code>, <code>ground_fog_density</code>, <code>ground_fog_size</code>,
 <code>world_fog_mode</code> (0 exp, 1 exp2, 2 linear), <code>world_fog_start</code>, <code>world_fog_end</code>,
 <code>world_fog_density</code>.</p>
+<p>While a script has <strong>any</strong> weather param overridden, the menu's per-map Ambience
+profile stops driving the weather cvars (it would otherwise overwrite your values
+every frame) — it resumes automatically on script unload / <code>gfx.reset()</code>.</p>
 <div class="highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- instant rainstorm</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;weather&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain_style&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain_style&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain_density&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain_puddles&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="nv">gfx</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s2">&quot;rain_thunder&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
 </span></code></pre></div>
 <blockquote>
