@@ -254,6 +254,23 @@ Names — toggles: `bloom`, `dof`, `motionblur`, `ssao`, `ssr`, `godrays`, `fxaa
 the colour-grade set `exposure`, `contrast`, `saturation`, `temperature`,
 `vignette`, `chromatic` (aberration), `grain`, `sharpen` (these need `grade` on).
 
+**Ambience / weather** (the native particle weather system, same as Visuals →
+Ambience — real rain/snow particles with ground traces, splashes and audio, not
+overlay fakes). `weather` is the master enable; nothing below renders without it.
+Toggles: `weather`, `rain`, `rain_puddles`, `rain_sound`, `rain_thunder`, `snow`,
+`snow_sound`, `ground_fog`, `world_fog`. Parameters: `weather_radius`, `wind`,
+`fallspeed`, `rain_density`, `rain_style` (0 classic, 1 enhanced streaks),
+`rain_puddles_amount`, `rain_volume`, `snow_density`, `snow_flake_size`,
+`snow_flake_life`, `snow_volume`, `ground_fog_density`, `ground_fog_size`,
+`world_fog_mode` (0 exp, 1 exp2, 2 linear), `world_fog_start`, `world_fog_end`,
+`world_fog_density`.
+
+```lua
+-- instant rainstorm
+gfx.set("weather", true); gfx.set("rain", true); gfx.set("rain_style", 1)
+gfx.set("rain_density", 3); gfx.set("rain_puddles", true); gfx.set("rain_thunder", true)
+```
+
 > These are the **same cvars** the Visuals menu uses, and effects self-disable if
 > the GPU lacks the needed extensions. DoF/SSAO/SSR/godrays need the depth buffer.
 

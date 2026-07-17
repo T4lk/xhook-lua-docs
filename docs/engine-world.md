@@ -209,6 +209,23 @@ are safe to call from either `on_paint` or `on_create_move`. Points are `Vector`
 >     end
 > end
 > ```
+
+> ### `world.dlight(origin, radius, r, g, b [, life=0.1 [, decay=0 [, elight=false [, key=0]]]])`
+> Spawn a **real engine dynamic light** — it lights the map geometry (engine world
+> AND the replacement world renderer) and any models near it. `r/g/b` are 0..255.
+> Lights are transient: call it every frame from `on_paint` to keep one alive
+> (`life` seconds per pulse; `decay` shrinks radius/sec). `elight=true` makes an
+> entity light (models only, no world). `key` pins one engine slot per unique
+> value so a moving light **updates in place** instead of stacking — use your own
+> ids (1000+i) for persistent movers; `0` grabs any free slot.
+> ```lua
+> -- warm flickering torch that follows you
+> callbacks.register("on_paint", function()
+>     local me = engine.local_player(); if not me then return end
+>     local flick = 0.9 + 0.1 * math.sin(engine.real_time() * 11)
+>     world.dlight(me:origin() + Vector(0,0,40), 260 * flick, 255, 160, 60, 0.1, 0, false, 999)
+> end)
+> ```
 >
 > **Trace result table** (`world.trace_line` / `trace_hull`):
 > | field | type | meaning |
