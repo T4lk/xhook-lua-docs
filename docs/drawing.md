@@ -256,8 +256,8 @@ the colour-grade set `exposure`, `contrast`, `saturation`, `temperature`,
 
 **Ambience / weather** (the native particle weather system, same as Visuals →
 Ambience — real rain/snow particles with ground traces, splashes and audio, not
-overlay fakes). `weather` is the master enable; nothing below renders without it.
-Toggles: `weather`, `rain`, `rain_puddles`, `rain_sound`, `rain_thunder`, `snow`,
+overlay fakes). `rain`, `snow` and `ground_fog` are independent toggles.
+Toggles: `rain`, `rain_puddles`, `rain_sound`, `rain_thunder`, `snow`,
 `snow_sound`, `ground_fog`, `world_fog`. Parameters: `weather_radius`, `wind`,
 `fallspeed`, `rain_density`, `rain_style` (0 classic, 1 enhanced streaks),
 `rain_puddles_amount`, `rain_volume`, `snow_density`, `snow_flake_size`,
@@ -265,9 +265,13 @@ Toggles: `weather`, `rain`, `rain_puddles`, `rain_sound`, `rain_thunder`, `snow`
 `world_fog_mode` (0 exp, 1 exp2, 2 linear), `world_fog_start`, `world_fog_end`,
 `world_fog_density`.
 
+While a script has **any** weather param overridden, the menu's per-map Ambience
+profile stops driving the weather cvars (it would otherwise overwrite your values
+every frame) — it resumes automatically on script unload / `gfx.reset()`.
+
 ```lua
 -- instant rainstorm
-gfx.set("weather", true); gfx.set("rain", true); gfx.set("rain_style", 1)
+gfx.set("rain", true); gfx.set("rain_style", 1)
 gfx.set("rain_density", 3); gfx.set("rain_puddles", true); gfx.set("rain_thunder", true)
 ```
 
